@@ -1,0 +1,22 @@
+{
+  "name": "hellobackend",
+  "version": "1.0.0",
+  "description": "First backend project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "Javascript",
+    "MERN",
+    "React",
+    "js"
+  ],
+  "author": "Muhammad Sheraz hussain",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5"
+  }
+}

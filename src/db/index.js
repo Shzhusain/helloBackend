@@ -12,6 +12,7 @@ const connectDB = async () => {
   } catch (error) {
     console.log("MONGODB CONNECTION ERROR", error);
 
+    //in node js Basically if you want to exit with success use 0 if you want to exit with failure use 1.
     process.exit(1);
   }
 };

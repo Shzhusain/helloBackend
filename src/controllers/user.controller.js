@@ -186,7 +186,7 @@ const loginUser = asyncHandler(async(req,res)=>{
    .status(200)
    .cookie("accessToken",accessToken,options)
    .cookie("refreshToken",refreshToken,options)
-   .json(new ApiResponse(200,{
+   .json( new ApiResponse(200,{
 
     user:loggedInUser,accessToken,refreshToken
     
@@ -200,4 +200,30 @@ const loginUser = asyncHandler(async(req,res)=>{
 
 ////////////////////////////Logout User/////////////////////////////////
 
-export { registerUser, loginUser };
+
+const logoutUser = asyncHandler(async (req, res) => {
+  // Update user's refreshToken to undefined
+  const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: { refreshToken: undefined } },
+      { new: true } // Return the updated document
+  );
+
+  if (!updatedUser) {
+      throw new ApiError(404, "User not found");
+  }
+
+  // Options for clearing cookies
+  const options = {
+      httpOnly: true,
+      secure: true,
+  };
+
+  // Clear access and refresh tokens cookies and send logout response
+  return res
+      .status(200)
+      .clearCookie("accessToken", options)
+      .clearCookie("refreshToken", options)
+      .json(new ApiResponse(200, {}, "User logged out"));
+});
+export { registerUser, loginUser,logoutUser };
